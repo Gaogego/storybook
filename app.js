@@ -9,9 +9,6 @@ const connectDb = require("./config/db");
 // load config
 require("dotenv").config({ path: "./config/config.env" });
 
-// passport config
-require("./config/passport")(passport);
-
 // connectDb
 connectDb();
 
@@ -23,6 +20,7 @@ app.engine(".hbs", engine({ defaultLayout: "main", extname: ".hbs" }));
 app.set("view engine", ".hbs");
 //app.set("views", "/views");
 
+// session must advance passport
 app.use(
   session({
     secret: "keyboard cat or any words :)",
@@ -30,6 +28,9 @@ app.use(
     saveUninitialized: true,
   })
 );
+
+// passport config
+require("./config/passport")(passport);
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -37,7 +38,7 @@ app.use(passport.session());
 app.use(express.static(path.join(__dirname, "public")));
 
 // router
-app.use("/", require("./controller/loginRouter"));
+app.use("/", require("./controller/index"));
 app.use("/auth", require("./controller/authRouter"));
 app.use("*", (req, res) => res.send("opps. no this resource."));
 
