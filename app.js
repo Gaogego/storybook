@@ -58,7 +58,8 @@ app.use((req, res, next) => {
 app.use("/", require("./controller/index"));
 app.use("/auth", require("./controller/authRouter"));
 app.use("/stories", require("./controller/stories"));
-app.use("*", (req, res) => res.send("opps. no this resource."));
+if (process.env.NODE_ENV != "development")
+  app.use("*", (req, res) => res.render("error/404", { message: "Router not registed." }));
 
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => console.log(`server is running in ${process.env.NODE_ENV} mode on port ${PORT}`));
