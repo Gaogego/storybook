@@ -1,0 +1,12 @@
+<h3>Add Story</h3>
+<!--  title, status, body -->
+<div class="row">
+  <form action="/stories" method="post" class="col s12">
+    {{> _edit}}
+    <!-- submit/Cancel -->
+    <div class="row">
+      <input type="submit" class="btn" value="Save">
+      <a href="/dashboard" class="btn orange">Cancel</a>
+    </div>
+  </form>
+</div>
